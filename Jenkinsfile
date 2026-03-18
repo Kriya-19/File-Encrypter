@@ -1,30 +1,29 @@
 pipeline {
-    agent any
+ agent any
 
-    stages {
+ stages {
 
-        stage('Checkout') {
-            steps {
-                echo "Checking out code..."
-            }
-        }
+  stage('Build') {
+   steps {
+    sh '''
+    cd "Password Protection"
+    mkdir -p build
+    javac -d build src/*.java
+    '''
+   }
+  }
 
-        stage('Build') {
-            steps {
-                sh 'echo Building project'
-            }
-        }
+  stage('Test') {
+   steps {
+    sh 'echo "Running tests..."'
+   }
+  }
 
-        stage('Test') {
-            steps {
-                sh 'echo Running tests'
-            }
-        }
+  stage('Deploy') {
+   steps {
+    sh 'echo "Deploying..."'
+   }
+  }
 
-        stage('Deploy') {
-            steps {
-                sh 'echo Deployment successful'
-            }
-        }
-    }
+ }
 }
