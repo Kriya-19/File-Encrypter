@@ -1,17 +1,23 @@
-node {
- stage('Build') {
-  sh '''
-  cd "Password Protection"
-  mkdir -p build
-  javac -d build src/*.java
-  '''
- }
+pipeline {
+ agent { label 'agent1' }
 
- stage('Test') {
-  sh 'echo "Testing..."'
- }
+ stages {
+  stage('Build') {
+   steps {
+    sh 'echo "Running build on agent node"'
+   }
+  }
 
- stage('Deploy') {
-  sh 'echo "Deploying..."'
+  stage('Test') {
+   steps {
+    sh 'echo "Running tests on agent node"'
+   }
+  }
+
+  stage('Deploy') {
+   steps {
+    sh 'echo "Deploying from agent node"'
+   }
+  }
  }
 }
